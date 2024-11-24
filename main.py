@@ -54,7 +54,7 @@ async def place_book(id: str, request: Request):
 async def update_book(id: str, request: Request):
     requestBody = await request.json()
     filePath = f"{currentDirectory}/{id}"
-    df_data = requests.get(f"http://localhost:8000/book/{id}")
+    df_data = requests.get(f"http://{hostWithPort}/book/{id}")
     df = pd.DataFrame(df_data)
     return {"done": "done"}
     
