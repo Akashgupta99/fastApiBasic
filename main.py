@@ -60,8 +60,8 @@ async def update_book(id: str, request: Request):
         requestBody = await request.json()
         filePath = f"{currentDirectory}/{id}"
         print(filePath)
-        df_data_temp = get_book(id)
-        df_data = await df_data_temp.json()
+        df_data = await get_book(id)
+        # df_data = await df_data_temp.json()
         # df_data = grequests.map([df_data_temp])[0]
         print(df_data)
         # if(df_data.status_code == 500):
