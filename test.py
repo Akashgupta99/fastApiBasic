@@ -10,12 +10,14 @@ import pandas as pd
 
 # Merging on a common column
 df1 = pd.DataFrame({'Name': ['Alice', 'Bob', "nameee"], 'Age': [25, 30, 1212]})
-df2 = pd.DataFrame({'Name': ["Alice"], 'Income': [26000]})
+df2 = pd.DataFrame({'Name': ["Akash"], 'Age': [26]})
 
-merged_df = df1.merge(df2, on='Name', how="outer")
+merged_df = df1.merge(df2, on='Name', how="outer", suffixes=("_d1Xcopy", "_d2Ycopy"))
 for column in merged_df.columns:
-    if(column.endswith("_x")):
-        merged_df[column.split("_")[0]] = merged_df[f"{column.split("_")[0]}_y"].fillna(merged_df[f"{column.split("_")[0]}_x"])
-        merged_df.drop([f"{column.split("_")[0]}_x", f"{column.split("_")[0]}_y"], axis=1, inplace=True)
+    if(column.endswith("_d1Xcopy")):
+        x_column_name = f"{column.split('_')[0]}_d1Xcopy"
+        y_column_name = f"{column.split('_')[0]}_d2Ycopy"
+        merged_df[column.split("_")[0]] = merged_df[y_column_name].fillna(merged_df[x_column_name])
+        merged_df.drop([x_column_name, y_column_name], axis=1, inplace=True)
 
 print(merged_df)
